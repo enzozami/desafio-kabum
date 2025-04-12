@@ -17,7 +17,7 @@
             $resultado = $usuario->autenticar($email, $senha);
             
             if ($resultado) {
-                $_SESSION['user_id'] = $resultado['idCliente'];
+                $_SESSION['user_id'] = $resultado['idADM'];
                 $_SESSION['user_name'] = $resultado['nome'];
                 header("Location: portal-administrativo/area-administrativa.php");
                 exit();

@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION['user_id'])) {
-        header("Location: login.php");
+        header("Location: ../index.php");
         exit();
     }
 ?>
@@ -28,24 +28,42 @@
     ?>
     
     <div class="container text-center">
-        <div class="row justify-content-center align-items-center" style="min-height: 82vh!important;">
+        <div class="row justify-content-center align-items-center" style="min-height: 76vh!important;">
             <div class="col-3">
                 <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/cadastrarCliente.php#" class="text-decoration-none" style="font-size: 100px;">
                     <div class="icon">
-                        <i class="bi bi-save"> <br>
+                        <i class="bi bi-file-earmark-person"> <br>
                             <div class="text">Cadastrar Cliente</div>
                         </i>
                     </div>
                 </a>
             </div>
             <div class="col-3">
-                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/editarCliente.php#" class="bi bi-amd text-dark" style="font-size: 100px;"></a>
+                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/editarCliente.php#" class="text-decoration-none" style="font-size: 100px;">
+                    <div class="icon">
+                        <i class="bi bi-brush-fill"> <br>
+                            <div class="text">Editar Cliente</div>
+                        </i>
+                    </div>
+                </a>
             </div>
             <div class="col-3">
-                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/excluirCliente.php#" class="bi bi-search text-dark" style="font-size: 100px;"></a>
+                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/excluirCliente.php#" class="text-decoration-none" style="font-size: 100px;">
+                    <div class="icon">
+                        <i class="bi bi-ban"> <br>
+                            <div class="text">Excluir Cliente</div>
+                        </i>
+                    </div>
+                </a>
             </div>
             <div class="col-3">
-                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/listarCliente.php#" class="bi bi-binoculars-fill text-dark" style="font-size: 100px;"></a>
+                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/listarCliente.php#" class="text-decoration-none" style="font-size: 100px;">
+                    <div class="icon">
+                        <i class="bi bi-list"> <br>
+                            <div class="text">Listar Cliente</div>
+                        </i>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

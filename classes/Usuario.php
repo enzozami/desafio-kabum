@@ -7,7 +7,7 @@
         }
 
         public function autenticar(string $email, string $senha): ?array {
-            $sql = "SELECT * FROM cliente WHERE email = :email AND senha = :senha";
+            $sql = "SELECT * FROM loginADM WHERE email = :email AND senha = :senha";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 'email' => $email,
