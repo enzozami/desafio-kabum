@@ -1,0 +1,25 @@
+<?php
+    class Cliente{
+        private PDO $db;
+        private $idCliente, $nome, $dataNascimento, $cpf, $rg, $telefone, $endereco, $id;
+    
+        public function __construct(PDO $Database, $id, $nome, $dataNascimento, $cpf, $rg, $telefone, $endereco){
+            $this->db = $Database;
+            $this->id = $id;
+            $this->nome = $nome;
+            $this->dataNascimento = $dataNascimento;
+            $this->cpf = $cpf;
+            $this->rg = $rg;
+            $this->telefone = $telefone;
+            $this->endereco = $endereco;
+        }
+    
+        public function getID() {return $this->id;}
+        public function getNome() {return $this->nome;}
+        public function getDataNascimento() {return $this->dataNascimento;}
+        public function getCPF() {return $this->cpf;}
+        public function getRG() {return $this->rg;}
+        public function getTelefone() {return $this->telefone;}
+        public function getEndereco() {return $this->endereco;}
+    }
+?>
