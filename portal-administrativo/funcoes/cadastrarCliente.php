@@ -1,5 +1,5 @@
 <?php 
-    //require_once "../desafio-kabum/classes";
+    require_once "../dev-kabum/desafio-kabum/classes/Database.php"
     
 ?>
 
