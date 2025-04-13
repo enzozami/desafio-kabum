@@ -39,9 +39,6 @@
                 $stmtEndereco = $this->database->prepare($sqlEndereco);
                 $stmtEndereco->execute($paramsEndereco);
             }
-
-            
-
             return $stmt->rowCount() > 0;
         }
 
@@ -50,7 +47,7 @@
                     SET nome = :nome, dataNascimento = :dataNascimento, cpf = :cpf, rg = :rg, telefone = :telefone 
                     WHERE idCliente = :idCliente";
             $params = [
-                "idCliente" => $cliente->getID(), 
+                "idCliente" => $this->clienteInserido, 
                 "nome" => $cliente->getNome(),
                 "dataNascimento" => $cliente->getDataNascimento(),
                 "cpf" => $cliente->getCPF(),
@@ -59,6 +56,22 @@
             ];
             $stmt = $this->database->prepare($sql);
             $stmt->execute($params);
+
+            foreach ($cliente->getEndereco() as $endereco){
+                $sqlEndereco = "UPDATE endereco 
+                                SET rua = :rua, bairro = :bairro, cidade = :cidade, cep = :cep,  estadoId = :estadoId
+                                WHERE clienteId = :clienteId";
+                $paramsEndereco = [
+                    "rua" => $endereco['rua'],
+                    "bairro" => $endereco['bairro'],
+                    "cidade" => $endereco['cidade'],
+                    "cep" => $endereco['cep'],
+                    "clienteId" => $this->clienteInserido,
+                    "estadoId" =>$endereco['estadoId'],
+                ];
+                $stmtEndereco = $this->database->prepare($sqlEndereco);
+                $stmtEndereco->execute($paramsEndereco);
+            }
             
             return $stmt->rowCount() > 0;
         }
@@ -75,11 +88,17 @@
         }
 
         public function listar(): array{
-            $sql = "SELECT nome, dataNascimento, cpf, rg, telefone FROM cliente";
+            $sql = "SELECT idCliente, nome, dataNascimento, cpf, rg, telefone, rua, bairro, cidade, siglaEstado AS Estado, cep
+                    FROM endereco
+                    LEFT JOIN cliente ON clienteId = idCliente
+                    LEFT JOIN estados ON estadoId = idEstado";
             $stmt = $this->database->prepare($sql);
             $stmt->execute();
+            
+            // Debugando para ver o retorno da consulta
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
         }
     }
 ?>

@@ -88,3 +88,26 @@ select * from estados;
 select * from loginADM;
 
 
+SELECT 
+    c.idCliente,
+    c.nome AS nomeCliente,
+    c.dataNascimento,
+    c.cpf,
+    c.rg,
+    c.telefone,
+    e.rua,
+    e.bairro,
+    e.cidade,
+    e.cep,
+    s.siglaEstado
+FROM cliente c
+INNER JOIN endereco e ON c.idCliente = e.clienteId
+INNER JOIN estados s ON e.estadoId = s.idEstado;
+
+
+SELECT idCliente, nome, dataNascimento, cpf, rg, telefone, rua, bairro, cidade, siglaEstado AS Estado, cep
+                    FROM endereco
+                    LEFT JOIN cliente ON clienteId = idCliente
+                    LEFT JOIN estados ON estadoId = idEstado;
+                    
+                                        

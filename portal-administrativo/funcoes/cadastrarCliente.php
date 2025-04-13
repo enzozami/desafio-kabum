@@ -75,11 +75,11 @@
             <div class="row">
                 <div class="col">
                     <label for="">CPF</label>
-                    <input type="text" name="cpf" class="form-control" maxlength="11" placeholder="CPF do Cliente" required>
+                    <input type="number" step="any" name="cpf" class="form-control" maxlength="11" placeholder="CPF do Cliente" required>
                 </div>
                 <div class="col">    
                     <label for="">RG</label>
-                    <input type="text" name="rg" class="form-control" maxlength="9" placeholder="RG do Cliente" required>
+                    <input type="number" step="any" name="rg" class="form-control" maxlength="9" placeholder="RG do Cliente" required>
                 </div>
             </div>
             <div class="row">
