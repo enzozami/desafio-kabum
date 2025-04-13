@@ -1,15 +1,15 @@
 <?php
     class Cliente{
-        private int $idCliente; 
+        private ?int $idCliente; 
         private string $nome; 
         private string $dataNascimento; 
         private string $cpf;
         private string $rg;
         private string $telefone;
-        private string $endereco;
+        private array $endereco;
         
     
-        public function __construct(int $idCliente, string $nome, string $dataNascimento, string $cpf, string $rg, string $telefone, string $endereco){
+        public function __construct(?int $idCliente, string $nome, string $dataNascimento, string $cpf, string $rg, string $telefone, array $endereco){
             $this->idCliente = $idCliente;
             $this->nome = $nome;
             $this->dataNascimento = $dataNascimento;

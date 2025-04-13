@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="">Área Administrativa</a>
+          <a class="nav-link active" aria-current="page" href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/area-administrativa.php#">Área Administrativa</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
