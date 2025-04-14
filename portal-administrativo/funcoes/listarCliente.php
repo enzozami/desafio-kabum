@@ -77,7 +77,7 @@
                                 <a href="editarCliente.php?id=<?=$cliente['idCliente']?>" class="btn btn-success">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a class="btn btn-danger" onclick="confirmarDelete('<?=$cliente['idCliente']?>', '<?=$cliente['nome']?>')">
+                                <a class="btn btn-danger" onclick="confirmarDelete('excluirCliente.php?idCliente=<?= $cliente['idCliente'] ?>', '<?= $cliente['nome'] ?>')">
                                     <i class="bi bi-trash3-fill"></i>
                                 </a>
                             </td>
@@ -88,5 +88,17 @@
             </tbody>
         </table>
     </div>
+    <?php
+        include_once "../../templates/footer.php";
+    ?>
+    <script>
+        function confirmarDelete(url, nome){
+            let remover = confirm("Realmente deseja excluir o produto '" + nome + "'?");
+            
+            if(remover){
+                window.location.href= url;
+            } 
+        }
+    </script>
 </body>
 </html>

@@ -41,16 +41,6 @@ VALUES
 ('Administrador 1', 'admin1@empresa.com', 'senha123'),
 ('Administrador 2', 'admin2@empresa.com', 'senha456');
 
-INSERT INTO cliente (nome, dataNascimento, cpf, rg, telefone)
-VALUES 
-('João Silva', '1985-04-25', '12345678901', '123456789', '11987654321'),
-('Maria Oliveira', '1990-10-10', '23456789012', '234567890', '11987654322');
-
-INSERT INTO endereco (rua, bairro, cidade, cep, clienteId, estadoId)
-VALUES 
-('Rua A, 123', 'Bairro X', 'São Paulo', '01010100', 1, 1),
-('Rua B, 456', 'Bairro Y', 'São Paulo', '02020200', 2, 2);
-
 INSERT INTO estados (siglaEstado, nomeEstado) VALUES
 ('AC', 'Acre'),
 ('AL', 'Alagoas'),
@@ -86,28 +76,4 @@ select * from cliente;
 select * from endereco;
 select * from estados;
 select * from loginADM;
-
-
-SELECT 
-    c.idCliente,
-    c.nome AS nomeCliente,
-    c.dataNascimento,
-    c.cpf,
-    c.rg,
-    c.telefone,
-    e.rua,
-    e.bairro,
-    e.cidade,
-    e.cep,
-    s.siglaEstado
-FROM cliente c
-INNER JOIN endereco e ON c.idCliente = e.clienteId
-INNER JOIN estados s ON e.estadoId = s.idEstado;
-
-
-SELECT idCliente, nome, dataNascimento, cpf, rg, telefone, rua, bairro, cidade, siglaEstado AS Estado, cep
-                    FROM endereco
-                    LEFT JOIN cliente ON clienteId = idCliente
-                    LEFT JOIN estados ON estadoId = idEstado;
-                    
-                                        
+                       

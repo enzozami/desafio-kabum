@@ -76,14 +76,21 @@
             return $stmt->rowCount() > 0 || $stmtEndereco->rowCount() > 0;
         }
 
-        public function excluir(Cliente $cliente){
-            $sql = "DELETE FROM cliente WHERE idCliente = :idCliente";
+        public function excluir(int $idCliente){
+            $sqlEndereco = "DELETE FROM endereco WHERE clienteId = :clienteId";
             $params = [
-                "idCliente" => $cliente->getID()
+                "clienteId" => $idCliente
             ];
-            $stmt = $this->database->prepare($sql);
+            $stmt = $this->database->prepare($sqlEndereco);
             $stmt->execute($params);
-            
+
+            $sqlCliente = "DELETE FROM cliente WHERE idCliente = :idCliente";
+            $params = [
+                "idCliente" => $idCliente
+            ];
+            $stmt = $this->database->prepare($sqlCliente);
+            $stmt->execute($params);
+
             return $stmt->rowCount() > 0;
         }
 
