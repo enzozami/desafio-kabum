@@ -1,4 +1,4 @@
-# desafio-kabum
+# Desafio-Babum
 ## 🔐 Sistema Administrativo de Clientes
 
 Bem-vindo(a)! Este é um sistema administrativo para gerenciar clientes, com funcionalidades de login, cadastro, edição e exclusão de clientes, além de permitir o cadastro de múltiplos endereços para cada cliente. O sistema utiliza PHP e MySQL, com a finalidade de gerenciar as informações de clientes e seus respectivos endereços, proporcionando uma interface administrativa para o gerenciamento completo desses dados.
@@ -82,7 +82,9 @@ Senha: senha123
 
 - Isso permitirá que você faça login e utilize as funcionalidades de cadastro e gerenciamento de clientes.
 
-### Funcionalidades
+---
+
+## Funcionalidades
 **Login:** O sistema permite autenticação de administradores através de um formulário de login.
 
 **Cadastro de Cliente:** Possibilidade de adicionar clientes ao sistema com nome, CPF, RG, data de nascimento e telefone.
@@ -95,7 +97,7 @@ Senha: senha123
 
 ---
 
-### Exemplo de Uso
+## Exemplo de Uso
 
 **Cadastrar um Novo Cliente**
 
