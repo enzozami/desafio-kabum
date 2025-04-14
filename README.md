@@ -59,8 +59,10 @@ git clone https://github.com/seuusuario/desafio-kabum.git
 - No diretório database/, você encontrará o arquivo banco.sql. Abra esse arquivo no seu MySQL ou MariaDB e execute as instruções para criar o banco de dados e as tabelas necessárias.
 
 -- banco.sql
+```sql
 CREATE DATABASE desafio_kabum;
 USE desafio_kabum;
+```
 -- (restante do script SQL...)
 
 3. **Configuração do Servidor Web**
