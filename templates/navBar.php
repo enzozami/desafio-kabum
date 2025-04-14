@@ -15,8 +15,6 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/cadastrarCliente.php#">Cadastrar</a></li>
-            <li><a class="dropdown-item" href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/editarCliente.php#">Editar</a></li>
-            <li><a class="dropdown-item" href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/excluirCliente.php#">Excluir</a></li>
             <li><a class="dropdown-item" href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/listarCliente.php#">Listar</a></li>
           </ul>
         </li>

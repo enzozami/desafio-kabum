@@ -47,7 +47,7 @@
                     SET nome = :nome, dataNascimento = :dataNascimento, cpf = :cpf, rg = :rg, telefone = :telefone 
                     WHERE idCliente = :idCliente";
             $params = [
-                "idCliente" => $this->clienteInserido, 
+                "idCliente" => $cliente->getID(), 
                 "nome" => $cliente->getNome(),
                 "dataNascimento" => $cliente->getDataNascimento(),
                 "cpf" => $cliente->getCPF(),
@@ -66,14 +66,14 @@
                     "bairro" => $endereco['bairro'],
                     "cidade" => $endereco['cidade'],
                     "cep" => $endereco['cep'],
-                    "clienteId" => $this->clienteInserido,
+                    "clienteId" => $cliente->getID(),
                     "estadoId" =>$endereco['estadoId'],
                 ];
                 $stmtEndereco = $this->database->prepare($sqlEndereco);
                 $stmtEndereco->execute($paramsEndereco);
             }
             
-            return $stmt->rowCount() > 0;
+            return $stmt->rowCount() > 0 || $stmtEndereco->rowCount() > 0;
         }
 
         public function excluir(Cliente $cliente){

@@ -29,7 +29,7 @@
     
     <div class="container text-center">
         <div class="row justify-content-center align-items-center" style="min-height: 76vh!important;">
-            <div class="col-3">
+            <div class="col">
                 <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/cadastrarCliente.php#" class="text-decoration-none" style="font-size: 100px;">
                     <div class="icon">
                         <i class="bi bi-file-earmark-person"> <br>
@@ -38,25 +38,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-3">
-                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/editarCliente.php#" class="text-decoration-none" style="font-size: 100px;">
-                    <div class="icon">
-                        <i class="bi bi-brush-fill"> <br>
-                            <div class="text">Editar Cliente</div>
-                        </i>
-                    </div>
-                </a>
-            </div>
-            <div class="col-3">
-                <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/excluirCliente.php#" class="text-decoration-none" style="font-size: 100px;">
-                    <div class="icon">
-                        <i class="bi bi-ban"> <br>
-                            <div class="text">Excluir Cliente</div>
-                        </i>
-                    </div>
-                </a>
-            </div>
-            <div class="col-3">
+            <div class="col">
                 <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/funcoes/listarCliente.php#" class="text-decoration-none" style="font-size: 100px;">
                     <div class="icon">
                         <i class="bi bi-list"> <br>
