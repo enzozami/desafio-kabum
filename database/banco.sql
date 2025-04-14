@@ -70,10 +70,4 @@ INSERT INTO estados (siglaEstado, nomeEstado) VALUES
 ('SE', 'Sergipe'),
 ('TO', 'Tocantins');
 
-
-
-select * from cliente;
-select * from endereco;
-select * from estados;
-select * from loginADM;
-                       
+                 
