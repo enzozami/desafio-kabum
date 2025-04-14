@@ -1,15 +1,15 @@
 # desafio-kabum
-## 🔐 Sistema de Login com Painel Administrativo (PHP + MySQL + POO)
+## 🔐 Sistema Administrativo de Clientes
 
-Bem-vindo(a)! Este projeto é uma aplicação web desenvolvida em PHP com o objetivo de simular um sistema administrativo simples, com funcionalidades de gerenciamento de clientes, usuários e controle de sessões.
+Bem-vindo(a)! Este é um sistema administrativo para gerenciar clientes, com funcionalidades de login, cadastro, edição e exclusão de clientes, além de permitir o cadastro de múltiplos endereços para cada cliente. O sistema utiliza PHP e MySQL, com a finalidade de gerenciar as informações de clientes e seus respectivos endereços, proporcionando uma interface administrativa para o gerenciamento completo desses dados.
 
 O sistema utiliza **Programação Orientada a Objetos (POO)**, banco de dados **MySQL** e inclui uma interface de login, painel administrativo e operações de CRUD de clientes.
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
-desafio-kabum/ 
+A estrutura do projeto é a seguinte:
 
 ├── classes/ │ 
 ├── Cliente.php │ 
@@ -38,124 +38,92 @@ desafio-kabum/
 ├── style.css 
 └── README.md
 
----
+## Requisitos
 
-## 🚀 Como Executar o Projeto
-
-### ✅ Pré-requisitos
-
-- PHP >= 7.4
-- Apache/Nginx (XAMPP, WAMP, Laragon ou PHP embutido)
+- PHP 7.0 ou superior
 - MySQL ou MariaDB
-- Navegador Web
+- Apache ou Nginx (para servidor web)
 
-### 🛠️ Passo a Passo
+## Como Inicializar o Projeto
 
-1. **Clone o repositório:**
+1. **Clonar o Repositório**
 
-```bash
-    git clone https://github.com/seu-usuario/desafio-kabum.git
-    cd desafio-kabum
-```
-
-2. **Crie o banco de dados:**
-
-Abra o terminal MySQL ou phpMyAdmin e execute:
-```sql
-    SOURCE C:\xampp\htdocs\dev-kabum\desafio-kabum\database\banco.sql;
-```
-
-3. **Configure a conexão no arquivo classes/Database.php**
-```php
-    private $host = 'localhost';
-    private $db_name = 'desafio_kabum';
-    private $username = 'root';
-    private $password = '';
-```
-
-4. **Execute o projeto:**
-- Usando servidor embutido:
-```bash 
-    php -S localhost:8080
-```
-- Ou coloque os arquivos na pasta htdocs do XAMPP/WAMP e acesse: (Recomendado)
-```bash
-    http://localhost/desafio-kabum/
-```
-
---- 
-
-## 🤝 Guia para Aliados
-
-Para contribuir com este projeto:
-- Clone o repositório e crie uma branch para sua feature:
+- Primeiro, clone o repositório para sua máquina local:
 
 ```bash
-git checkout -b feature/sua-funcionalidade
+git clone https://github.com/seuusuario/desafio-kabum.git
 ```
-- Faça commits claros.
-- Envie um Pull Request com uma descrição explicativa.
-- Validar mudanças localmente antes de submeter.
 
-## 👨‍💻 Funcionalidades
+2. **Configuração do Banco de Dados**
 
-### 🔐 Login (index.php)
+- No diretório database/, você encontrará o arquivo banco.sql. Abra esse arquivo no seu MySQL ou MariaDB e execute as instruções para criar o banco de dados e as tabelas necessárias.
 
-- 'Tela de login usando a classe Usuario.php
-- 'Validações e controle de sessão
-- 'Redirecionamento para área administrativa
+-- banco.sql
+CREATE DATABASE desafio_kabum;
+USE desafio_kabum;
+-- (restante do script SQL...)
 
-### 📁 Área Administrativa (area-administrativa.php)
+3. **Configuração do Servidor Web**
 
-- Painel principal após login
-- Acesso às operações com clientes
-- Opção de logout
+- Certifique-se de ter o PHP e um servidor web local configurado:
+- Se estiver utilizando o XAMPP ou MAMP, mova o diretório do projeto para a pasta htdocs (para XAMPP) ou a pasta correspondente.
+- Se preferir usar o Apache ou Nginx diretamente, configure-o para apontar para a pasta do projeto.
 
-### 👥 CRUD de Clientes (portal-administrativo/funcoes/)
+4. **Executando o Projeto**
 
-- Cadastrar (cadastrarCliente.php)
-- Editar (editarCliente.php)
-- Excluir (excluirCliente.php)
-- Listar (listarCliente.php)
+- Abra o navegador e acesse http://localhost/desafio-kabum (ou a URL correspondente ao seu servidor local).
 
-### 📚 Templates
+5. **Acessando o Sistema**
 
-- navBar.php: Navegação
-- footer.php: Rodapé
-- style.css: Estilos visuais
+- Acesse a área administrativa usando as seguintes credenciais padrão:
+
+Email: admin1@empresa.com
+Senha: senha123
+
+- Isso permitirá que você faça login e utilize as funcionalidades de cadastro e gerenciamento de clientes.
+
+### Funcionalidades
+**Login:** O sistema permite autenticação de administradores através de um formulário de login.
+
+**Cadastro de Cliente:** Possibilidade de adicionar clientes ao sistema com nome, CPF, RG, data de nascimento e telefone.
+
+**Cadastro de Endereços:** Cada cliente pode ter múltiplos endereços registrados.
+
+**Edição e Exclusão de Clientes:** Funcionalidade para editar ou excluir informações de clientes.
+
+**Listagem de Clientes:** Exibição de todos os clientes cadastrados com seus respectivos endereços.
 
 ---
 
-## 🧠 Documentação Técnica
+### Exemplo de Uso
 
-### Estrutura em Camadas
+**Cadastrar um Novo Cliente**
 
-#### Apresentação (interface):
+- Na tela inicial, clique na opção de Cadastrar Cliente.
+- Preencha o formulário com as informações do cliente, incluindo nome, CPF, telefone, data de nascimento, RG e endereços.
+- Clique em Salvar para registrar as informações.
 
-- index.php, area-administrativa.php
-- navBar.php, footer.php
-- style.css
+**Editar Cliente**
 
-#### Lógica de Negócio:
+- Na página de listagem de clientes, clique em Editar ao lado do cliente desejado.
+- Modifique as informações desejadas e clique em Salvar.
 
-- Usuario.php, Cliente.php, Endereco.php, Funcoes.php, Logout.php
+**Excluir Cliente**
 
-#### Persistência (Banco de Dados):
-
-- Database.php
-- banco.sql
+- Na página de listagem de clientes, clique em Excluir ao lado do cliente que deseja remover.
+- Confirme a exclusão na janela de confirmação.
 
 ---
 
-## 🔐 Sessões e Segurança
+### Como Contribuir
 
-- session_start() gerencia sessões
-- Verificações de $_SESSION['usuario'] para páginas restritas
-- Logout controlado por Logout.php
-
-### Ideias futuras
-
-- Usar password_hash() e password_verify() para criptografar senhas com mais segurança.
+- Contribuições são sempre bem-vindas! Caso queira contribuir com melhorias ou correções, siga os passos abaixo:
+- Faça o fork do repositório.
+- Crie uma branch para sua feature: git checkout -b feature-nome
+- Commit suas mudanças: git commit -am 'Adiciona nova feature'
+- Push para a branch: git push origin feature-nome
+- Envie um pull request.
+- Caso encontre um bug ou tenha sugestões, abra uma issue.
 
 ---
 
