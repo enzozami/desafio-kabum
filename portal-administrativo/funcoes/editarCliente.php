@@ -57,21 +57,7 @@
             $rg = filter_input(INPUT_POST, 'rg', FILTER_SANITIZE_STRING);
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_STRING);
         
-            // Dados do endereço
-            $rua = $_POST['enderecoRua'];
-            $bairro = $_POST['enderecoBairro'];
-            $cidade = $_POST['enderecoCidade'];
-            $estadoId = $_POST['estadoId'];
-            $cep = $_POST['enderecoCep'];
-        
-            // Criar array de endereço (se você tiver uma classe Endereco, pode instanciar)
-            $enderecos = [[
-                'rua' => $rua,
-                'bairro' => $bairro,
-                'cidade' => $cidade,
-                'estadoId' => $estadoId,
-                'cep' => $cep
-            ]];
+            $enderecos = $_POST['enderecos'];
         
             // Criar o objeto Cliente
             $cliente = new Cliente($idCliente, $nome, $dataNascimento, $cpf, $rg, $telefone, $enderecos);
@@ -97,80 +83,148 @@
     <title>Editar Clientes || DESAFIO KABUM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Função para adicionar um novo endereço
+        function adicionarEndereco() {
+            const container = document.getElementById('enderecos-container');
+            const index = container.children.length;
+            
+            const enderecoHTML = `
+                <div class="endereco-item border p-3 mb-3 position-relative">
+                    <button type="button" class="btn-close position-absolute top-0 end-0" onclick="removerEndereco(this)"></button>
+                    <input type="hidden" name="enderecos[${index}][idEndereco]" value="">
+                    <div class="row">
+                        <div class="col">
+                            <label>Rua</label>
+                            <input type="text" name="enderecos[${index}][rua]" class="form-control" placeholder="Rua do Cliente" required>
+                        </div>
+                        <div class="col">
+                            <label>Bairro</label>
+                            <input type="text" name="enderecos[${index}][bairro]" class="form-control" placeholder="Bairro" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Cidade</label>
+                            <input type="text" name="enderecos[${index}][cidade]" class="form-control" placeholder="Cidade" required>
+                        </div>
+                        <div class="col">
+                            <label>Estado</label>
+                            <select name="enderecos[${index}][estadoId]" class="form-control" required>
+                                <option value="" disabled selected>Selecione o Estado</option>
+                                <?php foreach($estados as $estado): ?>
+                                    <option value="<?= $estado['idEstado'] ?>"><?= $estado['nomeEstado'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>CEP</label>
+                            <input type="text" name="enderecos[${index}][cep]" class="form-control" placeholder="CEP" required>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', enderecoHTML);
+        }
+
+        // Função para remover um endereço
+        function removerEndereco(btn) {
+            const enderecoItem = btn.closest('.endereco-item');
+            enderecoItem.remove();
+        }
+    </script>
+
 </head>
-<body>
-    <div class="container">
+<body class="d-flex flex-column min-vh-100">
+<div class="container">
         <form action="" method="post">
             <h2 class="text-center mx-auto py-3">Edição de Clientes</h2>
 
-            <input type="hidden" name="idCliente" value="<?= $clientes['idCliente']?>">
+            <input type="hidden" name="idCliente" value="<?= $clientes['idCliente'] ?>">
         
-            <div class="row">
-                <div class="col">
-                    <label for="">Nome</label>
-                    <input type="text" name="nome" class="form-control" minlength="3" maxlength="200" placeholder="Nome do Cliente" value="<?=$clientes['nome']?>" required>
-                </div>
-                <div class="col">
-                    <label for="">Data de Nascimento</label>
-                    <input type="date" name="dataNascimento" class="form-control" value="<?=$clientes['dataNascimento']?>" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="">CPF</label>
-                    <input type="text" name="cpf" class="form-control" maxlength="11" placeholder="CPF do Cliente" value="<?=$clientes['cpf']?>" required>
-                </div>
-                <div class="col">    
-                    <label for="">RG</label>
-                    <input type="text" name="rg" class="form-control" maxlength="9" placeholder="RG do Cliente" value="<?=$clientes['rg']?>" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">    
-                    <label for="">Telefone</label>
-                    <input type="text" name="telefone" class="form-control" maxlength="11" placeholder="Número do Cliente" value="<?=$clientes['telefone']?>" required>
-                </div>
-                <div class="col">
-                    <label for="">Rua</label>
-                    <input type="text" name="enderecoRua" class="form-control" placeholder="Rua do Cliente" value="<?=$enderecos[0]['rua']?>" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label for="">Bairro</label>
-                    <input type="text" name="enderecoBairro" class="form-control" placeholder="Bairro" value="<?=$enderecos[0]['bairro']?>" required>
-                </div>
-                <div class="col">
-                    <label for="">Cidade</label>
-                    <input type="text" name="enderecoCidade" class="form-control" placeholder="Cidade" value="<?=$enderecos[0]['cidade']?>" required>
+            <h4 class="mt-4">Dados Pessoais</h4>
+            <div id="dadosPessoais-container">
+                <div class="dadosPessoais-group border p-3 mb-3 rounded">
+                    <div class="row">
+                        <div class="col">
+                            <label>Nome</label>
+                            <input type="text" name="nome" class="form-control" value="<?= $clientes['nome'] ?>" required>
+                        </div>
+                        <div class="col">
+                            <label>Data de Nascimento</label>
+                            <input type="date" name="dataNascimento" class="form-control" value="<?= $clientes['dataNascimento'] ?>" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>CPF</label>
+                            <input type="text" name="cpf" class="form-control" value="<?= $clientes['cpf'] ?>" required>
+                        </div>
+                        <div class="col">    
+                            <label>RG</label>
+                            <input type="text" name="rg" class="form-control" value="<?= $clientes['rg'] ?>" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Telefone</label>
+                            <input type="text" name="telefone" class="form-control" value="<?= $clientes['telefone'] ?>" required>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <label for="">Estado</label>
-                    <select name="estadoId" class="form-control rounded-pill" required>
-                        <option value="" disabled selected>Selecione Seu Estado</option>
-                        <?php
-                            foreach($estados as $estado) { 
-                        ?>
-                        <option value="<?=$estado['idEstado']?>" <?= ($estado['idEstado'] == $enderecos[0]['estadoId'] ? 'selected' : '') ?> >
-                            <?=$estado['nomeEstado'] ?>
-                        </option>
-                        <?php
-                            }
-                        ?>
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="">CEP</label>
-                    <input type="text" name="enderecoCep" class="form-control" placeholder="CEP" value="<?=$enderecos[0]['cep']?>" required>
-                </div>
+
+            <div id="enderecos-container">
+                <?php foreach ($enderecos as $index => $endereco): ?>
+                    <div class="endereco-item border p-3 mb-3 position-relative">
+                        <button type="button" class="btn-close position-absolute top-0 end-0" onclick="removerEndereco(this)"></button>
+                        <input type="hidden" name="enderecos[<?= $index ?>][idEndereco]" value="<?= $endereco['idEndereco'] ?>">
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Rua</label>
+                                <input type="text" name="enderecos[<?= $index ?>][rua]" class="form-control" value="<?= $endereco['rua'] ?>" required>
+                            </div>
+                            <div class="col">
+                                <label>Bairro</label>
+                                <input type="text" name="enderecos[<?= $index ?>][bairro]" class="form-control" value="<?= $endereco['bairro'] ?>" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Cidade</label>
+                                <input type="text" name="enderecos[<?= $index ?>][cidade]" class="form-control" value="<?= $endereco['cidade'] ?>" required>
+                            </div>
+                            <div class="col">
+                                <label>Estado</label>
+                                <select name="enderecos[<?= $index ?>][estadoId]" class="form-control" required>
+                                    <option value="" disabled selected>Selecione o Estado</option>
+                                    <?php foreach($estados as $estado): ?>
+                                        <option value="<?= $estado['idEstado'] ?>" <?= ($estado['idEstado'] == $endereco['estadoId'] ? 'selected' : '') ?>>
+                                            <?= $estado['nomeEstado'] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>CEP</label>
+                                <input type="text" name="enderecos[<?= $index ?>][cep]" class="form-control" value="<?= $endereco['cep'] ?>" required>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <button class="btn btn-success my-2 d-block mx-auto w-25">Atualizar</button>
+
+            <button type="button" class="btn btn-primary d-block mx-auto mb-3" onclick="adicionarEndereco()">Adicionar Endereço</button>
+            <button type="submit" class="btn btn-success my-2 d-block mx-auto w-25">Atualizar</button>
         </form>
     </div>
-    <?php
-        include_once "../../templates/footer.php"
-    ?>
+
+    <?php include_once "../../templates/footer.php"; ?>
 </body>
 </html>

@@ -36,8 +36,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div class="container">
         <h2 class="text-center mx-auto py-3">Lista de Clientes</h2>
 
@@ -50,17 +51,19 @@
                     <th class="text-center">CPF</th>
                     <th class="text-center">RG</th>
                     <th class="text-center">Telefone</th>
-                    <th class="text-center">Rua</th>
-                    <th class="text-center">Bairro</th>
-                    <th class="text-center">Cidade</th>
-                    <th class="text-center">Estado</th>
-                    <th class="text-center">CEP</th>
+                    <th class="text-center">Endereços</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <?php 
-                    foreach($clientes as $cliente){ ?>
+                    foreach($clientes as $cliente){                         
+                        // Concatenar endereços para exibição
+                        $enderecosExibidos = "";
+                        foreach($cliente['enderecos'] as $endereco) {
+                            $enderecosExibidos .= "Rua: {$endereco['rua']}, <br>Bairro: {$endereco['bairro']}, <br>Cidade: {$endereco['cidade']}, <br>Estado: {$endereco['estado']}, <br>CEP: {$endereco['cep']}<br>";
+                        }
+                    ?>
                         <tr>
                             <td class="text-center"><?=$cliente['idCliente']?></td>
                             <td class="text-center"><?=$cliente['nome']?></td>
@@ -68,11 +71,7 @@
                             <td class="text-center"><?=substr($cliente['cpf'], 0, 3) . '.' . substr($cliente['cpf'], 3, 3) . '.' . substr($cliente['cpf'], 6, 3) . '-' . substr($cliente['cpf'], 9, 2)?></td>
                             <td class="text-center"><?=substr($cliente['rg'], 0, 2) . '.' . substr($cliente['rg'], 2, 3) . '.' . substr($cliente['rg'], 5, 3) . '-' . substr($cliente['rg'], 8, 1)?></td>
                             <td class="text-center"><?='(' . substr($cliente['telefone'], 0, 2) . ') ' . substr($cliente['telefone'], 2, 5) . '-' . substr($cliente['telefone'], 7, 4)?></td>
-                            <td class="text-center"><?=$cliente['rua']?></td>
-                            <td class="text-center"><?=$cliente['bairro']?></td>
-                            <td class="text-center"><?=$cliente['cidade']?></td>
-                            <td class="text-center"><?=$cliente['Estado']?></td>
-                            <td class="text-center"><?=substr($cliente['cep'], 0, 2) . '.' . substr($cliente['cep'], 2, 3) . '-' . substr($cliente['cep'], 5, 3)?></td>
+                            <td class="text-center"><?=$enderecosExibidos?></td>
                             <td class="text-center">
                                 <a href="editarCliente.php?id=<?=$cliente['idCliente']?>" class="btn btn-success">
                                     <i class="bi bi-pencil"></i>
@@ -88,9 +87,11 @@
             </tbody>
         </table>
     </div>
-    <?php
-        include_once "../../templates/footer.php";
-    ?>
+    
+        <?php
+            include_once "../../templates/footer.php";
+        ?>
+    
     <script>
         function confirmarDelete(url, nome){
             let remover = confirm("Realmente deseja excluir o produto '" + nome + "'?");

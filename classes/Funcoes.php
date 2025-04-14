@@ -25,6 +25,20 @@
             $this->clienteInserido = $this->database->lastInsertId();
 
             // Inserção dos endereços
+            foreach ($cliente->getEndereco() as $endereco) {
+                // Verificar se o endereço já existe para o cliente
+                $sqlVerificaEndereco = "SELECT * FROM endereco WHERE rua = :rua AND bairro = :bairro AND cidade = :cidade AND cep = :cep AND clienteId = :clienteId";
+                $paramsVerificaEndereco = [
+                    "rua" => $endereco['rua'],
+                    "bairro" => $endereco['bairro'],
+                    "cidade" => $endereco['cidade'],
+                    "cep" => $endereco['cep'],
+                    "clienteId" => $this->clienteInserido
+                ];
+                $stmtVerificaEndereco = $this->database->prepare($sqlVerificaEndereco);
+                $stmtVerificaEndereco->execute($paramsVerificaEndereco);
+            }
+
             foreach ($cliente->getEndereco() as $endereco){
                 $sqlEndereco = "INSERT INTO endereco (rua, bairro, cidade, cep, clienteId, estadoId)
                                 VALUES (:rua, :bairro, :cidade, :cep, :clienteId, :estadoId)";
@@ -57,23 +71,69 @@
             $stmt = $this->database->prepare($sql);
             $stmt->execute($params);
 
-            foreach ($cliente->getEndereco() as $endereco){
-                $sqlEndereco = "UPDATE endereco 
-                                SET rua = :rua, bairro = :bairro, cidade = :cidade, cep = :cep,  estadoId = :estadoId
-                                WHERE clienteId = :clienteId";
-                $paramsEndereco = [
-                    "rua" => $endereco['rua'],
-                    "bairro" => $endereco['bairro'],
-                    "cidade" => $endereco['cidade'],
-                    "cep" => $endereco['cep'],
-                    "clienteId" => $cliente->getID(),
-                    "estadoId" =>$endereco['estadoId'],
+            // Atualizar ou inserir os endereços
+            foreach ($cliente->getEndereco() as $endereco) {
+                // Verificar se o endereço já existe para o cliente
+                $sqlVerificaEndereco = "SELECT idEndereco FROM endereco WHERE clienteId = :clienteId";
+                $paramsVerificaEndereco = [
+                    "clienteId" => $cliente->getID()
                 ];
-                $stmtEndereco = $this->database->prepare($sqlEndereco);
-                $stmtEndereco->execute($paramsEndereco);
+                $stmtVerificaEndereco = $this->database->prepare($sqlVerificaEndereco);
+                $stmtVerificaEndereco->execute($paramsVerificaEndereco);
+                $enderecosAtuais = $stmtVerificaEndereco->fetchAll(PDO::FETCH_COLUMN);
+
+                $idsEnderecosForm = [];
+                foreach ($cliente->getEndereco() as $endereco) {
+                    if (!empty($endereco['idEndereco'])) {
+                        $idsEnderecosForm[] = $endereco['idEndereco'];
+                    }
+                }
+
+                $enderecosParaRemover = array_diff($enderecosAtuais, $idsEnderecosForm);
+                if (!empty($enderecosParaRemover)) {
+                    $sqlDelete = "DELETE FROM endereco WHERE idEndereco = :idEndereco";
+                    $stmtDelete = $this->database->prepare($sqlDelete);
+                    foreach ($enderecosParaRemover as $idRemover) {
+                        $stmtDelete->execute(["idEndereco" => $idRemover]);
+                    }
+                }
+
+            
+                foreach ($cliente->getEndereco() as $endereco) {
+                    if (!empty($endereco['idEndereco'])) {
+                        // Atualizar
+                        $sqlUpdateEndereco = "UPDATE endereco 
+                                              SET rua = :rua, bairro = :bairro, cidade = :cidade, cep = :cep, estadoId = :estadoId
+                                              WHERE idEndereco = :idEndereco";
+                        $paramsUpdate = [
+                            "rua" => $endereco['rua'],
+                            "bairro" => $endereco['bairro'],
+                            "cidade" => $endereco['cidade'],
+                            "cep" => $endereco['cep'],
+                            "estadoId" => $endereco['estadoId'],
+                            "idEndereco" => $endereco['idEndereco']
+                        ];
+                        $stmtUpdate = $this->database->prepare($sqlUpdateEndereco);
+                        $stmtUpdate->execute($paramsUpdate);
+                    } else {
+                        // Inserir novo
+                        $sqlInsertEndereco = "INSERT INTO endereco (rua, bairro, cidade, cep, clienteId, estadoId)
+                                              VALUES (:rua, :bairro, :cidade, :cep, :clienteId, :estadoId)";
+                        $paramsInsert = [
+                            "rua" => $endereco['rua'],
+                            "bairro" => $endereco['bairro'],
+                            "cidade" => $endereco['cidade'],
+                            "cep" => $endereco['cep'],
+                            "clienteId" => $cliente->getID(),
+                            "estadoId" => $endereco['estadoId'],
+                        ];
+                        $stmtInsert = $this->database->prepare($sqlInsertEndereco);
+                        $stmtInsert->execute($paramsInsert);
+                    }
+                }
             }
             
-            return $stmt->rowCount() > 0 || $stmtEndereco->rowCount() > 0;
+            return true;
         }
 
         public function excluir(int $idCliente){
@@ -105,7 +165,34 @@
             // Debugando para ver o retorno da consulta
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return $result;
+            $clientes = [];
+    
+            foreach ($result as $row) {
+                $clienteId = $row['idCliente'];
+
+                // Se o cliente ainda não foi adicionado no array, adiciona
+                if (!isset($clientes[$clienteId])) {
+                    $clientes[$clienteId] = [
+                        'idCliente' => $row['idCliente'],
+                        'nome' => $row['nome'],
+                        'dataNascimento' => $row['dataNascimento'],
+                        'cpf' => $row['cpf'],
+                        'rg' => $row['rg'],
+                        'telefone' => $row['telefone'],
+                        'enderecos' => [] // Inicializa a lista de endereços
+                    ];
+                }
+
+                // Adiciona o endereço do cliente no array
+                $clientes[$clienteId]['enderecos'][] = [
+                    'rua' => $row['rua'],
+                    'bairro' => $row['bairro'],
+                    'cidade' => $row['cidade'],
+                    'estado' => $row['Estado'],
+                    'cep' => $row['cep']
+                ];
+            }
+            return array_values($clientes);
         }
     }
 ?>

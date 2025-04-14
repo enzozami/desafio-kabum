@@ -17,11 +17,13 @@
 <div class="container-fluid mt-auto">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">
-      <a href="http://localhost:8080/loja_EnzoZamineli/projeto_loja" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+      <a href="http://localhost:8080/dev-kabum/desafio-kabum/portal-administrativo/area-administrativa.php#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
       </a>
-      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2025 Enzo Zamineli - Desafio KABUM</span>
+      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2025 Desafio KABUM</span>
     </div>
+
+    <span class="mb-3 mb-md-0 text-body-secondary text-center">by: Enzo Zamineli</span>
 
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
       <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
