@@ -41,7 +41,7 @@ A estrutura do projeto é a seguinte:
 ## Requisitos
 
 - PHP 7.0 ou superior
-- MySQL ou MariaDB
+- MySQL
 - Apache ou Nginx (para servidor web)
 
 ## Como Inicializar o Projeto
