@@ -15,8 +15,7 @@ A estrutura do projeto é a seguinte:
 ├── Cliente.php │ 
 ├── Database.php │ 
 ├── Endereco.php │ 
-├── Funcoes.php │ 
-├── Logout.php │ 
+├── Funcoes.php │  
 └── Usuario.php │ 
 
 ├── database/ │ 
@@ -35,6 +34,7 @@ A estrutura do projeto é a seguinte:
 └── navBar.php │ 
 
 ├── index.php 
+├── Logout.php 
 ├── style.css 
 └── README.md
 

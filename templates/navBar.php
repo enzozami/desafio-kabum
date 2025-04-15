@@ -26,7 +26,7 @@
             <a class="nav-link" href="#">Bem-vindo, <?php echo $_SESSION['user_name']; ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../classes/Logout.php">Sair</a>
+            <a class="nav-link" href="../Logout.php">Sair</a>
           </li>
         <?php else: ?>
           <li class="nav-item">
